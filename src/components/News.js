@@ -8,7 +8,8 @@ export class News extends Component {
       this.state = {
          articles: [],
          loading: false,
-         page: 1
+         page: 1,
+         totalArticles: 20
       }
    }
 
@@ -16,7 +17,10 @@ export class News extends Component {
       let url = "https://newsapi.org/v2/everything?q=apple&from=2023-01-11&to=2023-01-11&sortBy=popularity&apiKey=f1166a120a7e4ffeaf54867f611ed98b"
       let data = await fetch(url)
       let parsed = await data.json()
-      this.setState({ articles: parsed.articles })
+      this.setState({
+         articles: parsed.articles,
+         totalArticles: parsed.totalresults
+      })
    }
 
    handleNext = async () => {
@@ -53,8 +57,8 @@ export class News extends Component {
                })}
             </div>
             <div className='container d-flex justify-content-between'>
-               <button disabled={this.state.page < 1} type="button" class="btn btn-dark" onClick={this.handlePrevious}>&larr; Previous</button>
-               <button type="button" class="btn btn-dark" onClick={this.handleNext}>Next &rarr;</button>
+               <button disabled={this.state.page < 1} type="button" className="btn btn-dark" onClick={this.handlePrevious}>&larr; Previous</button>
+               <button type="button" className="btn btn-dark" onClick={this.handleNext}>Next &rarr;</button>
             </div>
          </div>
       )
